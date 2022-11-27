@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 const MATCH_ID = 0;
 const MATCH_SEASON = 1;
 const MATCH_CITY = 2;
@@ -33,9 +33,9 @@ const DELIVERY_PLAYER_DISMISSED = 18;
 const DELIVERY_DISMISSAL_KIND = 19;
 const DELIVERY_FIELDER = 20;
 
-export const matches = [];
-export const deliveries = [];
+//  const matches = [];
 const readMatchData = () => {
+  const matches = [];
   let matchData = fs
     .readFileSync("../data/matches.csv", { encoding: "utf8", flag: "r" })
     .toString();
@@ -54,9 +54,13 @@ const readMatchData = () => {
     matches.push(match);
   });
   matches.pop();
+  return matches;
 };
 const readDeliveryData = () => {
+  const deliveries = [];
+
   let matchData = fs
+
     .readFileSync("../data/deliveries.csv", { encoding: "utf8", flag: "r" })
     .toString();
   matchData = matchData.split("\n");
@@ -81,4 +85,7 @@ const readDeliveryData = () => {
     deliveries.push(delivery);
   });
   deliveries.pop();
+  return deliveries;
 };
+export const deliveries = readDeliveryData();
+export const matches = readMatchData();
